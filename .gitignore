@@ -4,6 +4,6 @@ HELP.md
 
 ### IntelliJ IDEA ###
 .idea
-*.iws
+*.iwsgit
 *.iml
 *.ipr
