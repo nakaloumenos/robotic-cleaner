@@ -1,29 +1,42 @@
 package com.example.roboticcleaner.domain;
 
-import lombok.Value;
-import lombok.extern.slf4j.Slf4j;
+import java.awt.*;
+import java.util.List;
 
-import java.util.Set;
-
-@Slf4j
-@Value
 public class SeaArea {
 
-    private AreaSize areaSize;
-    private Set<Position> oilPatches;
+    private List<Integer> topRightCorner;
+    private List<List<Integer>> oilPatches;
 
-    public boolean hasPosition(final Position position) {
-        return position.getX() <= areaSize.getWidth()
-                && position.getY() <= areaSize.getHeight();
+    private Point topRightCornerP;
+
+    public SeaArea(List<Integer> topRightCorner, List<List<Integer>> oilPatches) {
+        this.topRightCorner = topRightCorner;
+        this.oilPatches = oilPatches;
     }
 
-    public boolean hasOilPatchIn(final Position position) {
+    public boolean contains(List<Integer> position) {
+        int x = position.get(0);
+        int y = position.get(1);
+        return x >= 0 && y >= 0 &&
+                x <= topRightCorner.get(0) && y <= topRightCorner.get(1);
+    }
+
+    public boolean hasOilPatchIn(List<Integer> position) {
         return this.oilPatches.contains(position);
     }
 
-    public void removeDirt(final Position position) {
-        log.info("Cleaning oil patch in position [{}, {}]", position.getX(), position.getY());
+    public void removeDirt(List<Integer> position) {
         this.oilPatches.remove(position);
     }
+
+    public List<Integer> getTopRightCorner() {
+        return topRightCorner;
+    }
+
+    public List<List<Integer>> getOilPatches() {
+        return oilPatches;
+    }
+
 
 }

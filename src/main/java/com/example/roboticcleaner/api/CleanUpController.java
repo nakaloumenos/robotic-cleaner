@@ -1,6 +1,6 @@
 package com.example.roboticcleaner.api;
 
-import com.example.roboticcleaner.service.CleaningService;
+import com.example.roboticcleaner.service.CleanUpService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,16 +12,17 @@ import javax.validation.Valid;
 
 @Slf4j
 @RestController
-@RequestMapping("/api")
+@RequestMapping(path = "/api")
 @RequiredArgsConstructor
-public class RoboticCleanerController {
+public class CleanUpController {
 
-    private final CleaningService cleaningService;
+    private final CleanUpService cleanUpService;
 
-    @PutMapping("/clean")
-    public CleaningResult clean(@Valid @RequestBody CleaningInstructions cleaningInstructions) {
-        log.info("Starting cleaning request");
-        return cleaningService.clean(cleaningInstructions);
+    @PutMapping("/cleanup")
+    public CleanUpResult sendCleanUpInstructions(@Valid @RequestBody CleanUpInstructions cleanUpInstructions) {
+        log.info("Starting Clean Up Request");
+        return cleanUpService.run(cleanUpInstructions);
     }
-}
 
+
+}
