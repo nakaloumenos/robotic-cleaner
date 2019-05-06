@@ -8,4 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 public class RoboticCleaner {
     private Position currentPosition;
     private int oilPatchesCleanedCount;
+
+    public void clean(String navigationInstructions, SeaArea seaArea) {
+        log.info("cleaning...");
+    }
+
 }
