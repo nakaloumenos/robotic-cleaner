@@ -1,4 +1,4 @@
-package com.example.roboticcleaner.parser;
+package com.example.roboticcleaner.utils;
 
 import com.example.roboticcleaner.command.*;
 import org.junit.Assert;
@@ -12,11 +12,8 @@ public class NavigationInstructionsParserTest {
 
     @Test
     public void stringNMapsToMoveUpCommand() {
-        //Given
-        final NavigationInstructionsParser parser = new NavigationInstructionsParser("N");
-
         //When
-        final List<Command> commands = parser.toCommands();
+        final List<Command> commands = NavigationInstructionsParser.toCommands("N");
 
         //Then
         Assert.assertTrue(commands.get(0) instanceof MoveUpCommand);
@@ -24,11 +21,8 @@ public class NavigationInstructionsParserTest {
 
     @Test
     public void stringSMapsToMoveDownCommand() {
-        //Given
-        final NavigationInstructionsParser parser = new NavigationInstructionsParser("S");
-
         //When
-        final List<Command> commands = parser.toCommands();
+        final List<Command> commands = NavigationInstructionsParser.toCommands("S");
 
         //Then
         Assert.assertTrue(commands.get(0) instanceof MoveDownCommand);
@@ -36,11 +30,8 @@ public class NavigationInstructionsParserTest {
 
     @Test
     public void stringWMapsToMoveLeftCommand() {
-        //Given
-        final NavigationInstructionsParser parser = new NavigationInstructionsParser("W");
-
         //When
-        final List<Command> commands = parser.toCommands();
+        final List<Command> commands = NavigationInstructionsParser.toCommands("W");
 
         //Then
         Assert.assertTrue(commands.get(0) instanceof MoveLeftCommand);
@@ -48,11 +39,8 @@ public class NavigationInstructionsParserTest {
 
     @Test
     public void stringEMapsToMoveRightCommand() {
-        //Given
-        final NavigationInstructionsParser parser = new NavigationInstructionsParser("E");
-
         //When
-        final List<Command> commands = parser.toCommands();
+        final List<Command> commands = NavigationInstructionsParser.toCommands("E");
 
         //Then
         Assert.assertTrue(commands.get(0) instanceof MoveRightCommand);
@@ -60,11 +48,8 @@ public class NavigationInstructionsParserTest {
 
     @Test
     public void emptyStringResultsInEmptyCommandList() {
-        //Given
-        final NavigationInstructionsParser parser = new NavigationInstructionsParser("");
-
         //When
-        final List<Command> commands = parser.toCommands();
+        final List<Command> commands = NavigationInstructionsParser.toCommands("");
 
         //Then
         Assert.assertEquals(0, commands.size());
@@ -73,11 +58,8 @@ public class NavigationInstructionsParserTest {
 
     @Test
     public void nullStringResultsInEmptyCommandList() {
-        //Given
-        final NavigationInstructionsParser parser = new NavigationInstructionsParser(null);
-
         //When
-        final List<Command> commands = parser.toCommands();
+        final List<Command> commands = NavigationInstructionsParser.toCommands(null);
 
         //Then
         Assert.assertEquals(0, commands.size());
@@ -85,11 +67,8 @@ public class NavigationInstructionsParserTest {
 
     @Test
     public void stringToCommandMappingIsCaseInsensitive() {
-        //Given
-        final NavigationInstructionsParser parser = new NavigationInstructionsParser("nN");
-
         //When
-        final List<Command> commands = parser.toCommands();
+        final List<Command> commands = NavigationInstructionsParser.toCommands("nN");
 
         //Then
         Assert.assertTrue(commands.get(0) instanceof MoveUpCommand);
@@ -98,11 +77,8 @@ public class NavigationInstructionsParserTest {
 
     @Test
     public void multiCommandStringIsMappedToCommandsInSameOrder() {
-        //Given
-        final NavigationInstructionsParser parser = new NavigationInstructionsParser("NSWE");
-
         //When
-        final List<Command> commands = parser.toCommands();
+        final List<Command> commands = NavigationInstructionsParser.toCommands("NSWE");
 
         //Then
         Assert.assertTrue(commands.get(0) instanceof MoveUpCommand);

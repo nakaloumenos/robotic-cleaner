@@ -2,7 +2,7 @@ package com.example.roboticcleaner.domain;
 
 import com.example.roboticcleaner.command.Command;
 import com.example.roboticcleaner.exception.OutOfBoundsException;
-import com.example.roboticcleaner.parser.NavigationInstructionsParser;
+import com.example.roboticcleaner.utils.NavigationInstructionsParser;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class RoboticCleaner {
     }
 
     public void clean(final String navigationInstructions, final SeaArea seaArea) {
-        List<Command> commands = new NavigationInstructionsParser(navigationInstructions).toCommands();
+        List<Command> commands = NavigationInstructionsParser.toCommands(navigationInstructions);
         for (Command command : commands) {
             log.info("Cleaner is moving...");
             String commandType = command.getClass().getSimpleName();
