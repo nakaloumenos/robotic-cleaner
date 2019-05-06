@@ -5,10 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static java.util.Collections.singletonList;
+import java.util.HashSet;
+import java.util.Set;
 
 @SpringBootTest
 public class SeaAreaTest {
@@ -17,9 +15,16 @@ public class SeaAreaTest {
 
     @Before
     public void setUp() {
-        List<Integer> topRight = Arrays.asList(5, 5);
-        List<Integer> oilPatch = Arrays.asList(2, 3);
-        List<List<Integer>> oilPatches = singletonList(oilPatch);
+        AreaSize topRight = AreaSize.builder()
+                .width(5)
+                .height(5)
+                .build();
+        Position oilPatch = Position.builder()
+                .x(2)
+                .y(3)
+                .build();
+        Set<Position> oilPatches = new HashSet<>();
+        oilPatches.add(oilPatch);
         seaArea = new SeaArea(topRight, oilPatches);
     }
 
@@ -27,7 +32,10 @@ public class SeaAreaTest {
     @Test
     public void positionWithCoordinateWithinBoundsIsIdentified() {
         //Given
-        List<Integer> position = Arrays.asList(5, 0);
+        Position position = Position.builder()
+                .x(5)
+                .y(0)
+                .build();
 
         //Then
         Assert.assertTrue(seaArea.contains(position));
@@ -36,7 +44,10 @@ public class SeaAreaTest {
     @Test
     public void positionWithPositiveXCoordinateOutsideBoundsIsIdentified() {
         //Given
-        List<Integer> position = Arrays.asList(6, 0);
+        Position position = Position.builder()
+                .x(6)
+                .y(0)
+                .build();
 
         //Then
         Assert.assertFalse(seaArea.contains(position));
@@ -45,7 +56,10 @@ public class SeaAreaTest {
     @Test
     public void positionWithNegativeXCoordinateOutsideBoundsIsIdentified() {
         //Given
-        List<Integer> position = Arrays.asList(-1, 0);
+        Position position = Position.builder()
+                .x(-1)
+                .y(0)
+                .build();
 
 
         //Then
@@ -56,7 +70,10 @@ public class SeaAreaTest {
     public void positionWithPositiveYCoordinateOutsideBoundsIsIdentified() {
 
         //Given
-        List<Integer> position = Arrays.asList(0, 6);
+        Position position = Position.builder()
+                .x(0)
+                .y(6)
+                .build();
 
 
         //Then
@@ -67,7 +84,10 @@ public class SeaAreaTest {
     public void positionWithNegativeYCoordinateOutsideBoundsIsIdentified() {
 
         //Given
-        List<Integer> position = Arrays.asList(0, -1);
+        Position position = Position.builder()
+                .x(0)
+                .y(-1)
+                .build();
 
 
         //Then
@@ -78,7 +98,10 @@ public class SeaAreaTest {
     public void positionWithoutOilSpilIsIdentified() {
 
         //Given
-        List<Integer> position = Arrays.asList(1, 0);
+        Position position = Position.builder()
+                .x(1)
+                .y(0)
+                .build();
 
 
         //Then
@@ -89,7 +112,10 @@ public class SeaAreaTest {
     public void positionWithOilPatchIsIdentified() {
 
         //Given
-        List<Integer> position = Arrays.asList(2, 3);
+        Position position = Position.builder()
+                .x(2)
+                .y(3)
+                .build();
 
 
         //Then

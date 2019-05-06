@@ -5,9 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 
 @SpringBootTest
 public class RoboticCleanerTest {
@@ -17,7 +16,10 @@ public class RoboticCleanerTest {
 
     @Before
     public void setUp() {
-        List<Integer> startingPosition = Arrays.asList(1, 2);
+        Position startingPosition = Position.builder()
+                .x(1)
+                .y(2)
+                .build();
         roboticCleaner = new RoboticCleaner(startingPosition);
     }
 
@@ -25,23 +27,33 @@ public class RoboticCleanerTest {
     public void canProvideCurrentLocationAsString() {
 
         //Then
-        Assert.assertEquals(Arrays.asList(1, 2), roboticCleaner.getCurrentPosition());
+        Position expectedPosition = Position.builder()
+                .x(1)
+                .y(2)
+                .build();
+        Assert.assertEquals(expectedPosition, roboticCleaner.getCurrentPosition());
     }
 
     @Test
     public void canClean() {
         //Given
         String navigationInstructions = "NNESEESWNWW";
-        List<Integer> topRight = Arrays.asList(5, 5);
-        List<Integer> oilPatch = Collections.emptyList();
-        List<List<Integer>> oilPatches = Collections.singletonList(oilPatch);
+        AreaSize topRight = AreaSize.builder()
+                .width(5)
+                .height(5)
+                .build();
+        Set<Position> oilPatches = Collections.emptySet();
         SeaArea seaArea = new SeaArea(topRight, oilPatches);
 
         //When
         roboticCleaner.clean(navigationInstructions, seaArea);
 
         //Then
-        Assert.assertEquals(Arrays.asList(1, 3), roboticCleaner.getCurrentPosition());
+        Position expectedPosition = Position.builder()
+                .x(1)
+                .y(3)
+                .build();
+        Assert.assertEquals(expectedPosition, roboticCleaner.getCurrentPosition());
     }
 
 }

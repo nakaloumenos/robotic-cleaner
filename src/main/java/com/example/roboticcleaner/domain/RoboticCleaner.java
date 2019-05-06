@@ -10,10 +10,10 @@ import java.util.List;
 @Slf4j
 public class RoboticCleaner {
 
-    private List<Integer> currentPosition;
+    private Position currentPosition;
     private int oilPatchesCleanedCount;
 
-    public RoboticCleaner(List<Integer> currentPosition) {
+    public RoboticCleaner(Position currentPosition) {
         this.currentPosition = currentPosition;
     }
 
@@ -28,9 +28,9 @@ public class RoboticCleaner {
         }
     }
 
-    private void checkBoundariesAndDirtiness(List<Integer> position, SeaArea seaArea) {
-        int x = position.get(0);
-        int y = position.get(1);
+    private void checkBoundariesAndDirtiness(Position position, SeaArea seaArea) {
+        int x = position.getX();
+        int y = position.getY();
         log.info("Checking if current position is within bounds");
         if (seaArea.contains(position)) {
             log.info("Position [" + x + ", " + y + "] is within bounds");
@@ -47,7 +47,7 @@ public class RoboticCleaner {
         }
     }
 
-    public List<Integer> getCurrentPosition() {
+    public Position getCurrentPosition() {
         return currentPosition;
     }
 

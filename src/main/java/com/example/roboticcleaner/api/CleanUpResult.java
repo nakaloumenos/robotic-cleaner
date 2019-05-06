@@ -1,21 +1,10 @@
 package com.example.roboticcleaner.api;
 
-import java.util.List;
+import com.example.roboticcleaner.domain.Position;
+import lombok.Value;
 
+@Value
 public class CleanUpResult {
-    private final List<Integer> finalPosition;
+    private final Position finalPosition;
     private final int oilPatchesCleaned;
-
-    public CleanUpResult(List<Integer> finalPosition, int oilPatchesCleaned) {
-        this.finalPosition = finalPosition;
-        this.oilPatchesCleaned = oilPatchesCleaned;
-    }
-
-    public List<Integer> getFinalPosition() {
-        return finalPosition;
-    }
-
-    public int getOilPatchesCleaned() {
-        return oilPatchesCleaned;
-    }
 }
