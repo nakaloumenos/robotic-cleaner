@@ -19,7 +19,7 @@ public class CleanUpController {
     private final CleanUpService cleanUpService;
 
     @PutMapping("/cleanup")
-    public CleanUpResult sendCleanUpInstructions(@Valid @RequestBody CleanUpRequest cleanUpRequest) {
+    public CleanUpResult sendCleanUpRequest(@Valid @RequestBody final CleanUpRequest cleanUpRequest) {
         log.info("Starting Clean Up Request");
         return cleanUpService.run(cleanUpRequest);
     }

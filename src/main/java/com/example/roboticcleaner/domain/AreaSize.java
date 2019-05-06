@@ -6,6 +6,6 @@ import lombok.Value;
 @Value
 @Builder
 public class AreaSize {
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 }

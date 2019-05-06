@@ -15,15 +15,15 @@ public class SeaAreaTest {
 
     @Before
     public void setUp() {
-        AreaSize topRight = AreaSize.builder()
+        final AreaSize topRight = AreaSize.builder()
                 .width(5)
                 .height(5)
                 .build();
-        Position oilPatch = Position.builder()
+        final Position oilPatch = Position.builder()
                 .x(2)
                 .y(3)
                 .build();
-        Set<Position> oilPatches = new HashSet<>();
+        final Set<Position> oilPatches = new HashSet<>();
         oilPatches.add(oilPatch);
         seaArea = new SeaArea(topRight, oilPatches);
     }
@@ -32,7 +32,7 @@ public class SeaAreaTest {
     @Test
     public void positionWithCoordinateWithinBoundsIsIdentified() {
         //Given
-        Position position = Position.builder()
+        final Position position = Position.builder()
                 .x(5)
                 .y(0)
                 .build();
@@ -44,7 +44,7 @@ public class SeaAreaTest {
     @Test
     public void positionWithPositiveXCoordinateOutsideBoundsIsIdentified() {
         //Given
-        Position position = Position.builder()
+        final Position position = Position.builder()
                 .x(6)
                 .y(0)
                 .build();
@@ -56,7 +56,7 @@ public class SeaAreaTest {
     @Test
     public void positionWithNegativeXCoordinateOutsideBoundsIsIdentified() {
         //Given
-        Position position = Position.builder()
+        final Position position = Position.builder()
                 .x(-1)
                 .y(0)
                 .build();
@@ -70,7 +70,7 @@ public class SeaAreaTest {
     public void positionWithPositiveYCoordinateOutsideBoundsIsIdentified() {
 
         //Given
-        Position position = Position.builder()
+        final Position position = Position.builder()
                 .x(0)
                 .y(6)
                 .build();
@@ -84,7 +84,7 @@ public class SeaAreaTest {
     public void positionWithNegativeYCoordinateOutsideBoundsIsIdentified() {
 
         //Given
-        Position position = Position.builder()
+        final Position position = Position.builder()
                 .x(0)
                 .y(-1)
                 .build();
@@ -98,7 +98,7 @@ public class SeaAreaTest {
     public void positionWithoutOilSpilIsIdentified() {
 
         //Given
-        Position position = Position.builder()
+        final Position position = Position.builder()
                 .x(1)
                 .y(0)
                 .build();
@@ -112,7 +112,7 @@ public class SeaAreaTest {
     public void positionWithOilPatchIsIdentified() {
 
         //Given
-        Position position = Position.builder()
+        final Position position = Position.builder()
                 .x(2)
                 .y(3)
                 .build();

@@ -17,17 +17,18 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class CleanUpExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(OutOfBoundsException.class)
-    public ResponseEntity handleOutOfBounsException(OutOfBoundsException exception) {
-        String errorMessage = exception.getMessage();
-        ErrorResponse errorResponse = new ErrorResponse(errorMessage);
+    public ResponseEntity handleOutOfBounsException(final OutOfBoundsException exception) {
+        final String errorMessage = exception.getMessage();
+        final ErrorResponse errorResponse = new ErrorResponse(errorMessage);
         log.debug("Returning 400 Bad Request");
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        String errorMessage = "Input of X and Y coordinates must be a List of exactly 2 Integers and areaSize and startingPosition must be Not Null";
-        ErrorResponse errorResponse = new ErrorResponse(errorMessage);
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers,
+                                                                  final HttpStatus status, final WebRequest request) {
+        final String errorMessage = "Input of X and Y coordinates must be a List of exactly 2 Integers and areaSize and startingPosition must be Not Null";
+        final ErrorResponse errorResponse = new ErrorResponse(errorMessage);
         log.debug("Returning 400 Bad Request");
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }

@@ -1,39 +1,33 @@
 package com.example.roboticcleaner.parser;
 
-import com.example.roboticcleaner.command.*;
+import com.example.roboticcleaner.command.Command;
+import com.example.roboticcleaner.domain.NavigationInstruction;
+import lombok.RequiredArgsConstructor;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+@RequiredArgsConstructor
 public class NavigationInstructionsParser {
 
-    private String navigationInstructions;
-
-    private static Map<String, Command> navigationCharacterToCommand = new HashMap<String, Command>() {{
-        put("N", new MoveUpCommand());
-        put("S", new MoveDownCommand());
-        put("W", new MoveLeftCommand());
-        put("E", new MoveRightCommand());
-    }};
-
-    public NavigationInstructionsParser(String navigationInstructions) {
-        this.navigationInstructions = navigationInstructions;
-    }
+    private final String navigationInstructions;
 
     public List<Command> toCommands() {
         if (isNullOrEmpty(navigationInstructions)) return new ArrayList<>();
         return buildCommandsList(navigationInstructions);
     }
 
-    private boolean isNullOrEmpty(String navigationInstructions) {
+    private boolean isNullOrEmpty(final String navigationInstructions) {
         return (navigationInstructions == null || navigationInstructions.length() == 0);
     }
 
     private List<Command> buildCommandsList(final String navigationInstructions) {
-        List<Command> commands = new ArrayList<>();
+        final List<Command> commands = new ArrayList<>();
 
         for (String commandCharacter : commandCharactersFrom(navigationInstructions)) {
             if (commandCharacter == null) break;
-            Command mappedCommand = lookupEquivalentCommand(commandCharacter.toUpperCase());
+            final Command mappedCommand = lookupEquivalentCommand(commandCharacter.toUpperCase());
             commands.add(mappedCommand);
         }
 
@@ -45,7 +39,7 @@ public class NavigationInstructionsParser {
     }
 
     private Command lookupEquivalentCommand(final String commandString) {
-        return navigationCharacterToCommand.get(commandString);
+        return NavigationInstruction.valueOf(commandString).getCommand();
     }
 
 }

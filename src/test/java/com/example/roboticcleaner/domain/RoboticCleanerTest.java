@@ -16,7 +16,7 @@ public class RoboticCleanerTest {
 
     @Before
     public void setUp() {
-        Position startingPosition = Position.builder()
+        final Position startingPosition = Position.builder()
                 .x(1)
                 .y(2)
                 .build();
@@ -27,7 +27,7 @@ public class RoboticCleanerTest {
     public void canProvideCurrentLocationAsString() {
 
         //Then
-        Position expectedPosition = Position.builder()
+        final Position expectedPosition = Position.builder()
                 .x(1)
                 .y(2)
                 .build();
@@ -37,19 +37,19 @@ public class RoboticCleanerTest {
     @Test
     public void canClean() {
         //Given
-        String navigationInstructions = "NNESEESWNWW";
-        AreaSize topRight = AreaSize.builder()
+        final String navigationInstructions = "NNESEESWNWW";
+        final AreaSize topRight = AreaSize.builder()
                 .width(5)
                 .height(5)
                 .build();
-        Set<Position> oilPatches = Collections.emptySet();
-        SeaArea seaArea = new SeaArea(topRight, oilPatches);
+        final Set<Position> oilPatches = Collections.emptySet();
+        final SeaArea seaArea = new SeaArea(topRight, oilPatches);
 
         //When
         roboticCleaner.clean(navigationInstructions, seaArea);
 
         //Then
-        Position expectedPosition = Position.builder()
+        final Position expectedPosition = Position.builder()
                 .x(1)
                 .y(3)
                 .build();

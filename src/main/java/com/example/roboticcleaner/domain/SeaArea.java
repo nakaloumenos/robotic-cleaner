@@ -7,21 +7,21 @@ import java.util.Set;
 @Value
 public class SeaArea {
 
-    private AreaSize areaSize;
-    private Set<Position> oilPatches;
+    private final AreaSize areaSize;
+    private final Set<Position> oilPatches;
 
-    public boolean contains(Position position) {
+    public boolean contains(final Position position) {
         return position.getX() >= 0 &&
                 position.getX() <= areaSize.getWidth() &&
                 position.getY() >= 0 &&
                 position.getY() <= areaSize.getHeight();
     }
 
-    public boolean hasOilPatchIn(Position position) {
+    public boolean hasOilPatchIn(final Position position) {
         return this.oilPatches.contains(position);
     }
 
-    public void removeDirt(Position position) {
+    public void removeDirt(final Position position) {
         this.oilPatches.remove(position);
     }
 

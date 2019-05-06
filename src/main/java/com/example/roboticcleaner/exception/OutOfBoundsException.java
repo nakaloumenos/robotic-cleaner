@@ -2,7 +2,7 @@ package com.example.roboticcleaner.exception;
 
 public class OutOfBoundsException extends RuntimeException {
 
-    public OutOfBoundsException(String message) {
+    public OutOfBoundsException(final String message) {
         super(message);
     }
 

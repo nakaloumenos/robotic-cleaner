@@ -4,5 +4,5 @@ import com.example.roboticcleaner.api.CleanUpRequest;
 import com.example.roboticcleaner.api.CleanUpResult;
 
 public interface CleanUpService {
-    CleanUpResult run(CleanUpRequest cleanUpRequest);
+    CleanUpResult run(final CleanUpRequest cleanUpRequest);
 }

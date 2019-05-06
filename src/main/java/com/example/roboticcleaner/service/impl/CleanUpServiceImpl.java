@@ -14,17 +14,16 @@ import org.springframework.stereotype.Service;
 public class CleanUpServiceImpl implements CleanUpService {
 
     @Override
-    public CleanUpResult run(CleanUpRequest cleanUpRequest) {
-        RoboticCleaner roboticCleaner = cleanUpRequest.getRoboticCleaner();
-        SeaArea seaArea = cleanUpRequest.getSeaArea();
-        String navigationInstructions = cleanUpRequest.getNavigationInstructions();
-
+    public CleanUpResult run(final CleanUpRequest cleanUpRequest) {
+        final RoboticCleaner roboticCleaner = cleanUpRequest.getRoboticCleaner();
+        final SeaArea seaArea = cleanUpRequest.getSeaArea();
+        final String navigationInstructions = cleanUpRequest.getNavigationInstructions();
 
         log.info("Give Instructions to Robotic Cleaner");
         roboticCleaner.clean(navigationInstructions, seaArea);
 
-        Position cleanerPosition = roboticCleaner.getCurrentPosition();
-        int oilPatchesCleanedCount = roboticCleaner.getOilPatchesCleanedCount();
+        final Position cleanerPosition = roboticCleaner.getCurrentPosition();
+        final int oilPatchesCleanedCount = roboticCleaner.getOilPatchesCleanedCount();
         return new CleanUpResult(cleanerPosition, oilPatchesCleanedCount);
     }
 }

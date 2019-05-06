@@ -14,6 +14,7 @@ import java.util.Set;
 
 @Getter
 public class CleanUpRequest {
+
     @NotNull
     @Size(min = 2, max = 2)
     private final List<Integer> areaSize;
@@ -25,10 +26,11 @@ public class CleanUpRequest {
     private final List<List<Integer>> oilPatches;
     private final String navigationInstructions;
 
-    private SeaArea seaArea;
-    private RoboticCleaner roboticCleaner;
+    private final SeaArea seaArea;
+    private final RoboticCleaner roboticCleaner;
 
-    public CleanUpRequest(List<Integer> areaSize, List<Integer> startingPosition, List<List<Integer>> oilPatches, String navigationInstructions) {
+    public CleanUpRequest(final List<Integer> areaSize, final List<Integer> startingPosition,
+                          final List<List<Integer>> oilPatches, final String navigationInstructions) {
         this.areaSize = areaSize;
         this.startingPosition = startingPosition;
         this.oilPatches = oilPatches;
@@ -38,22 +40,20 @@ public class CleanUpRequest {
         this.roboticCleaner = new RoboticCleaner(toPosition(startingPosition));
     }
 
-    private AreaSize toAreaSize(List<Integer> areaSizeAsList) {
+    private AreaSize toAreaSize(final List<Integer> areaSizeAsList) {
         return AreaSize.builder()
                 .width(areaSizeAsList.get(0))
                 .height(areaSizeAsList.get(1))
                 .build();
     }
 
-    private Set<Position> toSetOfOilPatches(List<List<Integer>> oilPatchesAsLists) {
+    private Set<Position> toSetOfOilPatches(final List<List<Integer>> oilPatchesAsLists) {
         final Set<Position> oilPatches = new HashSet<>();
-        oilPatchesAsLists.forEach(oilPatchAsList -> {
-            oilPatches.add(toPosition(oilPatchAsList));
-        });
+        oilPatchesAsLists.forEach(oilPatchAsList -> oilPatches.add(toPosition(oilPatchAsList)));
         return oilPatches;
     }
 
-    private Position toPosition(List<Integer> positionAsList) {
+    private Position toPosition(final List<Integer> positionAsList) {
         return Position.builder()
                 .x(positionAsList.get(0))
                 .y(positionAsList.get(1))

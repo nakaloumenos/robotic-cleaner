@@ -13,11 +13,11 @@ public class RoboticCleaner {
     private Position currentPosition;
     private int oilPatchesCleanedCount;
 
-    public RoboticCleaner(Position currentPosition) {
+    public RoboticCleaner(final Position currentPosition) {
         this.currentPosition = currentPosition;
     }
 
-    public void clean(String navigationInstructions, SeaArea seaArea) {
+    public void clean(final String navigationInstructions, final SeaArea seaArea) {
         List<Command> commands = new NavigationInstructionsParser(navigationInstructions).toCommands();
         for (Command command : commands) {
             log.info("Cleaner is moving...");
@@ -28,7 +28,7 @@ public class RoboticCleaner {
         }
     }
 
-    private void checkBoundariesAndDirtiness(Position position, SeaArea seaArea) {
+    private void checkBoundariesAndDirtiness(final Position position, final SeaArea seaArea) {
         int x = position.getX();
         int y = position.getY();
         log.info("Checking if current position is within bounds");

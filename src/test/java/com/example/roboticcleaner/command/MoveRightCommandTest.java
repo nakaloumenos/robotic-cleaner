@@ -12,19 +12,19 @@ public class MoveRightCommandTest {
     @Test
     public void testMoveRightCommandMovesCleanerRight() {
         //Given
-        MoveRightCommand command = new MoveRightCommand();
-        Position startingPosition = Position.builder()
+        final MoveRightCommand command = new MoveRightCommand();
+        final Position startingPosition = Position.builder()
                 .x(2)
                 .y(4)
                 .build();
-        RoboticCleaner roboticCleaner = new RoboticCleaner(startingPosition);
+        final RoboticCleaner roboticCleaner = new RoboticCleaner(startingPosition);
 
         //When
-        Position newPosition = command.move(roboticCleaner);
+        final Position newPosition = command.move(roboticCleaner);
 
         //Then
-        Assert.assertEquals(3, (int) newPosition.getX());
-        Assert.assertEquals(4, (int) newPosition.getY());
+        Assert.assertEquals(3, newPosition.getX());
+        Assert.assertEquals(4, newPosition.getY());
     }
 
 }
