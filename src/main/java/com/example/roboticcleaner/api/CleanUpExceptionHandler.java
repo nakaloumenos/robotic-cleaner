@@ -1,36 +1,36 @@
 package com.example.roboticcleaner.api;
 
-import com.example.roboticcleaner.exception.ErrorResponse;
 import com.example.roboticcleaner.exception.OutOfBoundsException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
-@ControllerAdvice
-public class CleanUpExceptionHandler extends ResponseEntityExceptionHandler {
+@RestControllerAdvice
+public class CleanUpExceptionHandler {
 
-    @ExceptionHandler(OutOfBoundsException.class)
-    public ResponseEntity handleOutOfBounsException(final OutOfBoundsException exception) {
-        final String errorMessage = exception.getMessage();
-        final ErrorResponse errorResponse = new ErrorResponse(errorMessage);
-        log.debug("Returning 400 Bad Request");
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public String handleMethodArgumentNotValidException(final MethodArgumentNotValidException e) {
+        log.debug(e.getMessage(), e);
+        return "Invalid input!";
     }
 
-    @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers,
-                                                                  final HttpStatus status, final WebRequest request) {
-        final String errorMessage = "Input of X and Y coordinates must be a List of exactly 2 Integers and areaSize and startingPosition must be Not Null";
-        final ErrorResponse errorResponse = new ErrorResponse(errorMessage);
-        log.debug("Returning 400 Bad Request");
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(OutOfBoundsException.class)
+    public String handleOutOfBounsException(final OutOfBoundsException e) {
+        log.debug(e.getMessage(), e);
+        return e.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(RuntimeException.class)
+    public String handleUnexpectedRuntimeException(final RuntimeException e) {
+        log.error("Unexpected exception", e);
+        return "An unexpected error occurred!";
     }
 
 }

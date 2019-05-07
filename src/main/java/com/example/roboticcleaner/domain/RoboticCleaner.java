@@ -18,6 +18,7 @@ public class RoboticCleaner {
     }
 
     public void clean(final String navigationInstructions, final SeaArea seaArea) {
+        checkRoboticCleanerStartsWithinBounds(this.currentPosition, seaArea);
         List<Command> commands = NavigationInstructionsParser.toCommands(navigationInstructions);
         for (Command command : commands) {
             log.info("Cleaner is moving...");
@@ -28,22 +29,34 @@ public class RoboticCleaner {
         }
     }
 
+    private void checkRoboticCleanerStartsWithinBounds(final Position startingPosition, final SeaArea seaArea) {
+        log.info("Checking if robotic cleaner is within bounds");
+        if (!seaArea.contains(this.currentPosition)) {
+            log.debug("Position [" + startingPosition.getX() + ", " + startingPosition.getY() + "] is out of bounds!");
+            throw new OutOfBoundsException("Robotic cleaner started out of bounds!");
+        }
+    }
+
     private void checkBoundariesAndDirtiness(final Position position, final SeaArea seaArea) {
-        int x = position.getX();
-        int y = position.getY();
+        checkRoboticCleanerNavigatedBounds(position, seaArea);
+        checkForOilSpillAndClean(position, seaArea);
+    }
+
+    private void checkRoboticCleanerNavigatedBounds(final Position position, final SeaArea seaArea) {
         log.info("Checking if current position is within bounds");
-        if (seaArea.contains(position)) {
-            log.info("Position [" + x + ", " + y + "] is within bounds");
-            log.info("Checking if current position has an oil spil");
-            if (seaArea.hasOilPatchIn(position)) {
-                log.info("Position [" + x + ", " + y + "] has oil spil");
-                this.oilPatchesCleanedCount++;
-                seaArea.removeDirt(position);
-            }
-            log.info("Position [" + x + ", " + y + "] is clean");
-        } else {
-            log.error("Position [" + x + ", " + y + "] is out of bounds!");
-            throw new OutOfBoundsException("Position [" + x + ", " + y + "] is out of bounds!");
+        if (!seaArea.contains(position)) {
+            log.debug("Position [" + position.getX() + ", " + position.getY() + "] is out of bounds!");
+            throw new OutOfBoundsException("Robotic cleaner navigated out of bounds!");
+        }
+        log.info("Position [" + position.getX() + ", " + position.getY() + "] is within bounds");
+    }
+
+    private void checkForOilSpillAndClean(final Position position, final SeaArea seaArea) {
+        if (seaArea.hasOilPatchIn(position)) {
+            log.info("Position [" + position.getX() + ", " + position.getY() + "] has oil spill");
+            this.oilPatchesCleanedCount++;
+            seaArea.removeDirt(position);
+            log.info("Position [" + position.getX() + ", " + position.getY() + "] is clean");
         }
     }
 

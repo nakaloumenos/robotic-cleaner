@@ -12,8 +12,11 @@ public class NavigationInstructionsParserTest {
 
     @Test
     public void stringNMapsToMoveUpCommand() {
+        //Given
+        final String navigationInstructions = "N";
+
         //When
-        final List<Command> commands = NavigationInstructionsParser.toCommands("N");
+        final List<Command> commands = NavigationInstructionsParser.toCommands(navigationInstructions);
 
         //Then
         Assert.assertTrue(commands.get(0) instanceof MoveUpCommand);
@@ -21,8 +24,11 @@ public class NavigationInstructionsParserTest {
 
     @Test
     public void stringSMapsToMoveDownCommand() {
+        //Given
+        final String navigationInstructions = "S";
+
         //When
-        final List<Command> commands = NavigationInstructionsParser.toCommands("S");
+        final List<Command> commands = NavigationInstructionsParser.toCommands(navigationInstructions);
 
         //Then
         Assert.assertTrue(commands.get(0) instanceof MoveDownCommand);
@@ -30,8 +36,11 @@ public class NavigationInstructionsParserTest {
 
     @Test
     public void stringWMapsToMoveLeftCommand() {
+        //Given
+        final String navigationInstructions = "W";
+
         //When
-        final List<Command> commands = NavigationInstructionsParser.toCommands("W");
+        final List<Command> commands = NavigationInstructionsParser.toCommands(navigationInstructions);
 
         //Then
         Assert.assertTrue(commands.get(0) instanceof MoveLeftCommand);
@@ -39,8 +48,11 @@ public class NavigationInstructionsParserTest {
 
     @Test
     public void stringEMapsToMoveRightCommand() {
+        //Given
+        final String navigationInstructions = "E";
+
         //When
-        final List<Command> commands = NavigationInstructionsParser.toCommands("E");
+        final List<Command> commands = NavigationInstructionsParser.toCommands(navigationInstructions);
 
         //Then
         Assert.assertTrue(commands.get(0) instanceof MoveRightCommand);
@@ -48,8 +60,11 @@ public class NavigationInstructionsParserTest {
 
     @Test
     public void emptyStringResultsInEmptyCommandList() {
+        //Given
+        final String navigationInstructions = "";
+
         //When
-        final List<Command> commands = NavigationInstructionsParser.toCommands("");
+        final List<Command> commands = NavigationInstructionsParser.toCommands(navigationInstructions);
 
         //Then
         Assert.assertEquals(0, commands.size());
@@ -58,27 +73,23 @@ public class NavigationInstructionsParserTest {
 
     @Test
     public void nullStringResultsInEmptyCommandList() {
+        //Given
+        final String navigationInstructions = null;
+
         //When
-        final List<Command> commands = NavigationInstructionsParser.toCommands(null);
+        final List<Command> commands = NavigationInstructionsParser.toCommands(navigationInstructions);
 
         //Then
         Assert.assertEquals(0, commands.size());
     }
 
     @Test
-    public void stringToCommandMappingIsCaseInsensitive() {
-        //When
-        final List<Command> commands = NavigationInstructionsParser.toCommands("nN");
-
-        //Then
-        Assert.assertTrue(commands.get(0) instanceof MoveUpCommand);
-        Assert.assertTrue(commands.get(1) instanceof MoveUpCommand);
-    }
-
-    @Test
     public void multiCommandStringIsMappedToCommandsInSameOrder() {
+        //Given
+        final String navigationInstructions = "NSWE";
+
         //When
-        final List<Command> commands = NavigationInstructionsParser.toCommands("NSWE");
+        final List<Command> commands = NavigationInstructionsParser.toCommands(navigationInstructions);
 
         //Then
         Assert.assertTrue(commands.get(0) instanceof MoveUpCommand);
